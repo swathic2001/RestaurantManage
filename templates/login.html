@@ -1,0 +1,370 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Coding by CodingLab || www.codinglabweb.com -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Registration Form</title>
+    <!-- <link rel="stylesheet" href="style.css" />
+     -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+
+    <!-- Unicons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <style>
+      /* Apply basic styles to the select box */
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+/* Style the arrow icon */
+.select_wrapper i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensures the icon doesn't interfere with the click on the select box */
+}
+
+/* Hide the default dropdown arrow on some browsers (e.g., Chrome, Safari) */
+select::-ms-expand {
+    display: none;
+}
+
+/* Style the dropdown options */
+select option {
+    background-color: #fff;
+    color: #333;
+}
+
+    </style>
+  </head>
+  <body  style="background-color: goldenrod;">
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="nav_logo">Restaurant</a>
+
+        <ul class="nav_items">
+          <li class="nav_item">
+            <a href="#" class="nav_link">Home</a>
+            <a href="#" class="nav_link">Product</a>
+            <a href="#" class="nav_link">Services</a>
+            <a href="#" class="nav_link">Contact</a>
+          </li>
+        </ul>
+
+        <button class="button" id="form-open">Login</button>
+      </nav>
+    </header>
+
+    <!-- Home -->
+    <section class="home">
+      <div class="form_container">
+        <i class="uil uil-times form_close"></i>
+        <!-- Login Form -->
+        <div class="form login_form">
+          <form method="POST">
+            <h2>Login</h2>
+
+            <div class="input_box">
+              <input type="email" placeholder="Enter your email"  id="email" required />
+              <i class="uil uil-envelope-alt email"></i>
+            </div>
+            <div class="input_box">
+              <input type="password" placeholder="Enter your password"  id="password" required />
+              <i class="uil uil-lock password"></i>
+              <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+
+            <div class="option_field">
+              <span class="checkbox">
+                <input type="checkbox" id="check" />
+                <label for="check">Remember me</label>
+              </span>
+              <a href="#" class="forgot_pw" id="forgot_pw_link">Forgot password?</a>
+            </div>
+
+            <button class="button" id="login_action">Login Now</button>
+
+            <div class="login_signup">Don't have an account? <a href="#" id="signup">Signup</a></div>
+          </form>
+        </div>
+
+        <!-- Forgot Password Form -->
+        <div class="form forgot_password_form" style="display: none;">
+          <form action="POST">
+            {% csrf_token %}
+            <h2>Forgot Password</h2>
+
+         
+            <div class="input_box">
+                <input type="email" placeholder="Enter your email"  id="eeemail" name="email" required />
+                <i class="uil uil-envelope-alt email"></i>
+              </div>
+              <!-- <div class="input_box">
+                <input type="email" placeholder="Enter new password"  id="eeemail" name="email" required />
+                <i class="uil uil-envelope-alt email"></i>
+              </div>
+              <div class="input_box">
+                <input type="email" placeholder="Enter your email"  id="eeemail" name="email" required />
+                <i class="uil uil-envelope-alt email"></i>
+              </div>
+        -->
+
+            <button class="button" id="forgot_password_action">Send link</button>
+
+            <div class="login_signup">
+              Remember your password? <a href="#" id="login">Login</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="form signup_form" style="display: none;">
+            <form method="POST">
+                {% csrf_token %}
+                <h2>Signup</h2>
+    
+                <div class="input_box">
+                  <input type="email" placeholder="Enter your email"  id="eemail"  name="email" required />
+                  <i class="uil uil-envelope-alt email"></i>
+                </div>
+                <div class="input_box">
+                  <input type="password" placeholder="Create password" id="ppassword"  name="password" required />
+                  <i class="uil uil-lock password"></i>
+                  <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
+                <div class="input_box">
+                  <input type="password" placeholder="Confirm password" id="confirm_password"    required />
+                  <i class="uil uil-lock password"></i>
+                  <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
+                <div class="input_box" style="
+                  height: 100%;
+                  width: 100%;
+                  border: none;
+                  outline: none;
+                  padding: 0 30px;
+                  color: goldenrod;
+                  transition: all 0.2s ease;
+                  border-bottom: 1.5px solid #aaaaaa;
+              ">
+                  <i class=" uil-user-circle" style="margin-left: -30px;"></i>
+                  
+                  <select id="rrole" name="role" required style="
+                    height: 100%;
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    padding: 0 30px;
+                    /* color: goldenrod; */
+                    transition: all 0.2s ease;
+                    border-bottom: 0px solid #aaaaaa;
+                ">
+                    <option value="" disabled selected>Select a role</option>
+                    <option value="superadmin">Superadmin</option>
+                    <option value="admin">Admin</option>
+                    <option value="manager">Manager</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="customer">Customer</option>
+                    <option value="kitchen">Kitchen Dept</option>
+
+                    
+
+
+                    <!-- <option value="manager">Customer</option>
+                    <option value="manager">Client</option> -->
+
+                    <!-- Add more roles as needed -->
+                </select>
+                  <!-- <i class="uil uil-eye-slash pw_hide"></i> -->
+                </div>
+                   
+                <button class="button" id="signin">Signup Now</button>
+    
+                <div class="login_signup">Already have an account? <a href="#" id="login">Login</a></div>
+              </form>
+            </div>
+      </div>
+    </section>
+
+    <!-- <script src="script.js"></script> -->
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+        <script>
+          $(document).ready(function(){
+            $("#signin").click(function(event){
+            
+              event.preventDefault();
+        
+              var email = $('#eemail').val();
+              var password = $('#ppassword').val();
+              var confirm_password = $('#confirm_password').val();
+              var role = $('#rrole').val();
+              var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+              if (password !== confirm_password) {
+                alert("Password and Confirm Password must be the same.");
+                return;
+              }
+        
+              $.ajax({
+                url: "/signup/",
+                type: "POST",
+                data: {email: email, password: password, confirm_password: confirm_password, role: role},
+            
+                success: function(result) {
+                
+              console.log("result ***: ", result);
+              if(result['status'] === 'fail') {
+                  alert("Registration failed: " + result['reason']);
+              } else {
+                  alert("Registered successfully");
+                  window.location.href = "/login_check";
+              }
+          },
+                error: function(error) {
+                  console.log("Error:", error);
+                  alert("Error occurred during registration.");
+                }
+              });
+            });
+          });
+    
+        
+        $(document).ready(function(){
+            $("#login_action").click(function(){
+            event.preventDefault();
+
+                var email = $('#email').val();
+                var password = $('#password').val();
+                var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+                
+                console.log("email :", email);
+                console.log("password: ",password);
+
+                $.ajax({
+                    url:"/login_check/",
+                    type : "POST",
+                    data : {email : email,password : password},
+                    
+                    success : function(result)
+                    {
+                        console.log("result ***: ",result);
+                        
+                        if(result['usertype'] == 'default')
+                        {
+                            alert("Invalid Email or password does not match!!")
+                          
+                        }
+                        else if(result['usertype'] == 'restaurant')
+                        {
+                            alert("welcome"+ result ['userdetails']);
+                            window.location.href = "/restaurant/index";
+                    }
+                    else if(result['usertype'] == 'customer')
+                        {
+                            alert("welcome"+ result ['userdetails']);
+                            window.location.href = "/customer/house";
+                    }
+                    else if(result['usertype'] == 'manager')
+                        {
+                            alert("welcome"+ result ['userdetails']);
+                            window.location.href = "/manager/home";
+                    }
+                    else if(result['usertype'] == 'kitchen')
+                        {
+                            alert("welcome"+ result ['userdetails']);
+                            window.location.href = "/kitchen_app/housee";
+                    }
+
+                        else
+                        {
+                            alert("welcome"+ result ['userdetails']);
+                            window.location.href = "/homee";
+                        }
+                    }
+                });
+            
+            });
+            
+        });
+   
+    $(document).ready(function () {
+        // AJAX for submitting the form
+        $("#forgot_password_action").on("click", function () {
+            var email = $("#eeemail").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/forgot_password/",
+                data: {
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                    email: email,
+                },
+                success: function (data) {
+                    alert(data.message);  // You can handle the response as needed
+                },
+                error: function () {
+                    alert("Error occurred while processing the request.");
+                }
+            });
+        });
+    });
+
+
+      document.getElementById("forgot_pw_link").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(".login_form").style.display = "none";
+        document.querySelector(".signup_form").style.display = "none";
+        document.querySelector(".forgot_password_form").style.display = "block";
+      });
+
+      document.getElementById("login").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(".login_form").style.display = "block";
+        document.querySelector(".signup_form").style.display = "none";
+        document.querySelector(".forgot_password_form").style.display = "none";
+      });
+
+      document.getElementById("signup").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(".login_form").style.display = "none";
+        document.querySelector(".signup_form").style.display = "block";
+        document.querySelector(".forgot_password_form").style.display = "none";
+      });
+
+      document.getElementById("login_from_signup").addEventListener("click", function (e) {
+        e.preventDefault();
+        // You can add additional logic here if needed
+        // For now, just hide the signup form and show the login form
+        document.querySelector(".signup_form").style.display = "none";
+        document.querySelector(".login_form").style.display = "block";
+        document.querySelector(".forgot_password_form").style.display = "none";
+      });
+
+      document.getElementById("signup_now").addEventListener("click", function (e) {
+        e.preventDefault();
+        // You can add additional logic here if needed
+        // For now, just hide the login form and show the signup form
+        document.querySelector(".login_form").style.display = "none";
+        document.querySelector(".signup_form").style.display = "block";
+        document.querySelector(".forgot_password_form").style.display = "none";
+      });
+  
+    
+   
+    </script>
+  </body>
+</html>

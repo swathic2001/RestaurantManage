@@ -1,0 +1,141 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<title>AdminHub</title>
+</head>
+<style>
+		body{
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url(https://img.freepik.com/premium-photo/restaurant-cafe-coffee-shop-interior-with-people-abstract-defocused-blur-background_293060-3973.jpg);
+    /* background: url(https://img.freepik.com/premium-photo/restaurant-cafe-coffee-shop-interior-with-people-abstract-defocused-blur-background_293060-3973.jpg); */
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.9s;
+	height: 100vh;
+}
+</style>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Restaurant</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="{% url 'index' %}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+		
+			<li>
+				<a href="{% url 'RestaurantListVieew' %}">
+					<i class='bx bxs-spa'></i>
+					<span class="text">Restaurant</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'CategoryListVieew' %}">
+				<i class='bx bxs-food-menu'></i>
+
+					<span class="text">Category</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'FoodItemListVieew' %}">
+					<i class='bx bxs-hot'></i>
+
+					<span class="text">Food Item</span>
+				</a>
+			</li>
+            <li>
+				<a href="{% url 'StatusListVieew' %}">
+					<i class='bx bxs-hourglass'></i>
+
+					<span class="text">Food status</span>
+				</a>
+			</li>
+           
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="{% url 'changePasswor' %}">
+				
+					<i class='bx bxs-key' ></i>
+					<span class="text">ChangePassword</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'logout' %}" class="logout" onclick="confirmLogout()">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+		<main>
+	
+				
+			</div>
+        
+			
+			<ul class="box-info">
+				<li >
+					<i class='bx bxs-cart-add' ></i>
+					<span class="text">
+						<h3>{{order_count}}</h3>
+						<p>Orders</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-food-menu' ></i>
+					<span class="text">
+						<h3>{{category_count}}</h3>
+						<p>Categories</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group' ></i>
+					<span class="text">
+						<h3>{{customer_count}}</h3>
+						<p>Customers</p>
+					</span>
+				</li>
+				
+				
+			</ul>
+
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	<script src="script.js"></script>
+	<script>
+		function confirmLogout() {
+			var confirmLogout = confirm("Are you sure you want to logout?");
+			if (confirmLogout) {
+				window.location.href = "{% url 'logout' %}";
+			}
+		}
+	</script>
+</body>
+</html>
+{% endblock %}

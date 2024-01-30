@@ -1,0 +1,261 @@
+{%extends 'restaurant/base.html'%}
+{% load static %}
+{% block content %}
+
+
+<style>
+  /* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+ 
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+/* body {
+  min-height:100vh;
+  display: flex;
+
+  justify-content: center;
+  
+
+} */
+body{
+  min-height: 100vh;
+}
+.container {
+  margin-left: 300px;
+  margin-top:100px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+}
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: goldenrod;
+}
+
+.form button:hover {
+  background:goldenrod;
+}
+/*Responsive*/
+@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+#con{
+  display: flex;
+  gap:24px;
+}
+#con .input-box .form-control{
+  height:40px;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  /* padding: 0 15px; */
+  
+  
+}
+</style>
+    <section class="container">
+      <header>Category Details</header>
+      <form class="form" method="post">
+         {% csrf_token %}
+        <div id="con">
+        <div class="input-box" >
+          <label>Branch</label>
+          <input type="hidden" class="form-control" id="categoryId" name="categoryId"  value="{{ clist.0.categoryId }}">
+
+          <select class="form-control" name="branch" id="cid" onchange="getRest()"> 
+              <option value="" selected disabled>select Branches</option>
+              {% for obj in blist %}
+                  <option value="{{obj.branchId}}" {% if obj.branchId == clist.0.restaurant.branch.branchId %} selected {% endif %}>{{obj.bname}}</option>
+              {% endfor %}
+          </select>
+          </div>
+          <div class="input-box" >
+            <label>Restaurant</label>
+            <input type="hidden" class="form-control" id="categoryId" name="categoryId"  value="{{ clist.0.categoryId }}">
+  
+            <select class="form-control" name="restaurant" id="bid"> 
+                <option value="" selected disabled>select Restaurant</option>
+                {% for obj in rlist %}
+                    <option value="{{obj.restaurantId}}" {% if obj.restaurantId == clist.0.restaurant.restaurantId %} selected {% endif %}>{{obj.rname}}</option>
+                {% endfor %}
+            </select>
+            </div>
+      </div>
+        <div class="input-box">
+            <label>Name</label>
+            <input type="text" id="cname" name="cname" placeholder="Enter name" value="{{clist.0.cname }}" required />
+          <input type="hidden" class="form-control" id="categoryId" name="categoryId"  value="{{ clist.0.categoryId }}">
+
+        </div>
+      
+      
+    
+        <button id="login_action">Submit</button>
+    </form>
+    
+
+
+    
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function getRest() {
+  $('#bid')
+  .find('option')
+  .remove()
+  .end()
+  .append('<option value="null" select disabled>select branch</option>')
+  .val('null');
+  cid=document.getElementById('cid').value;
+  '{% for obj in rlist %}'
+  console.log("----",'{{rlist}}',cid)
+  if('{{obj.branch.branchId}}'==cid)
+  {
+    $('#bid')
+    .find('option')
+    .end()
+    .append('<option value="'+'{{obj.restaurantId}}'+'">'+'{{obj.rname}}'+'</option>')
+  }
+  '{% endfor %}'
+    
+}
+  $(document).ready(function(){
+    $("#login_action").click(function(event){
+     
+      event.preventDefault();
+        
+        
+        cname=document.getElementById('cname').value;
+        categoryId=document.getElementById('categoryId').value;
+        restaurant=document.getElementById('bid').value;
+
+          console.log("cname:", cname);
+          console.log("categoryId:",categoryId);
+
+      if(confirm("Are you sure you want to save this category?"))     
+      {
+        $.ajax({
+            url: "/restaurant/updatecategoryy",
+            type: "POST",
+            data: { 'cname': cname, 'categoryId': categoryId ,'restaurant':restaurant },
+            success: function (result)
+             {
+              console.log("result val: ", result);
+                if (result['success']) {
+                    alert("Category details edited successfully");
+                    window.location.href = "/restaurant/CategoryListVieew";
+                } else {
+                    alert("Failed to edit category details: " + result['message']);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('AJAX error:', error);
+            }
+        });
+
+      }
+
+      });
+  });
+</script>
+
+
+{% endblock %}
+

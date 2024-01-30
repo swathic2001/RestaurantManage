@@ -1,0 +1,448 @@
+
+
+
+{%extends 'rest_app/base.html'%}
+{% load static %}
+{% block content %}
+
+
+<style>
+  /* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+ 
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+/* body {
+  min-height:100vh;
+  display: flex;
+
+  justify-content: center;
+  
+
+} */
+body{
+  min-height: 100vh;
+}
+.container {
+  margin-left: 300px;
+  margin-top:30px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+}
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: goldenrod;
+}
+
+.form button:hover {
+  background:goldenrod;
+}
+/*Responsive*/
+@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+#co{
+  display: flex;
+  gap:24px;
+}
+#co .input-box .form-control{
+  height:40px;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  /* padding: 0 15px; */
+  
+  
+}
+#con{
+  display: flex;
+  gap:24px;
+}
+#con .input-box .form-control{
+  height:40px;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  /* padding: 0 15px; */
+  
+  
+}
+#con1{
+  display: flex;
+  gap:24px;
+}
+#con1 .input-box .form-control{
+  height:40px;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  /* padding: 0 15px; */
+  
+  
+}
+#con2{
+  display: flex;
+  gap:24px;
+}
+#con2 .input-box .form-control{
+  height:40px;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  /* padding: 0 15px; */
+  
+  
+}
+</style>
+<section class="container">
+  <header>Place Order</header>
+  <form class="form" method="post" action="/createorderr">
+
+    <!-- {% csrf_token %} -->
+    <div id="co">
+
+    <div class="input-box">
+        <label>Customer</label>
+        <select class="form-control" name="customer" id="customer">
+            <option value="" selected disabled>Select Customers</option>
+            {% for obj in custlist %}
+            <option value="{{ obj.cId }}">{{ obj.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+   </div>
+  <div id=con>
+ 
+  
+    
+    <div class="input-box">
+      <label>Branch</label>
+      <select class="form-control" name="branch" id="bid" onchange="getRest()">
+          <option value="" selected disabled>Select Branch</option>
+          {% for obj in blist %}
+          <option value="{{ obj.branchId }}">{{ obj.bname }}</option>
+      {% endfor %}
+      </select>
+  </div>
+  <div class="input-box">
+    <label>Restaurant</label>
+    <select class="form-control" name="restaurant" id="rid" onchange="getCat()">
+        <option value="" selected disabled>Select Restaurant</option>
+      
+    </select>
+</div>
+  </div>
+  <div id="con1">
+<div class="input-box">
+  <label>Category</label>
+  <select class="form-control" name="category" id="cid" onchange="getFood()">
+      <option value="" selected disabled>Select Category</option>
+      
+  </select>
+</div>
+<div class="input-box">
+  <label>FoodItem</label>
+  <select class="form-control" name="food_item" id="fid"  onchange="getPrice()">
+      <option value="" selected disabled>Select fooditem</option>
+      
+  </select>
+</div>
+</div> 
+</div>
+<div id="con2">
+  <div class="input-box">
+    <label>Price</label>
+    <input type="text" id="pid" name="price" placeholder="Enter food price" required />
+    
+  </div>
+<div class="input-box">
+  <label>Quantity</label>
+  <input type="text" id="quantity" name="quantity" placeholder="Enter food quantity" required oninput="updateTotalPrice()" />
+</div>
+
+</div>
+<div class="input-box">
+  <label>Total Price</label>
+  <input type="text" id="totalprice" name="totalprice" placeholder="Total Price"/>
+</div>
+<button id="login_action">Submit</button> 
+</form>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+
+
+function getRest() {
+  $('#rid')
+  .find('option')
+  .remove()
+  .end()
+  .append('<option value="null" select disabled>select restaurant</option>')
+  .val('null');
+  bid=document.getElementById('bid').value;
+  '{% for obj in rlist %}'
+  console.log("----",'{{rlist}}',bid)
+  if('{{obj.branch.branchId}}'==bid)
+  {
+    $('#rid')
+    .find('option')
+    .end()
+    .append('<option value="'+'{{obj.restaurantId}}'+'">'+'{{obj.rname}}'+'</option>')
+  }
+  '{% endfor %}'
+    
+}
+function getCat() {
+  $('#cid')
+  .find('option')
+  .remove()
+  .end()
+  .append('<option value="null" select disabled>select category</option>')
+  .val('null');
+  rid=document.getElementById('rid').value;
+  '{% for obj in clist %}'
+  console.log("----",'{{clist}}',rid)
+  if('{{obj.restaurant.restaurantId}}'==rid)
+  {
+    $('#cid')
+    .find('option')
+    .end()
+    .append('<option value="'+'{{obj.categoryId}}'+'">'+'{{obj.cname}}'+'</option>')
+  }
+  '{% endfor %}'
+    
+}
+function getFood() {
+  $('#fid')
+    .find('option')
+    .remove()
+    .end()
+    .append('<option value="null" select disabled>select fooditem</option>')
+    .val('null');
+    
+  var cid = document.getElementById('cid').value;
+  '{% for obj in flist %}'
+    if ('{{ obj.category.categoryId }}' == cid) 
+    {
+      $('#fid')
+        .find('option')
+        .end()
+        .append('<option value="' + '{{ obj.foodId }}' + '">' + '{{ obj.fname }}' + '</option>');
+    }
+  '{% endfor %}'
+}
+function getFood() {
+  $('#fid')
+    .find('option')
+    .remove()
+    .end()
+    .append('<option value="null" select disabled>select fooditem</option>')
+    .val('null');
+    
+  var cid = document.getElementById('cid').value;
+  '{% for obj in flist %}'
+    if ('{{ obj.category.categoryId }}' == cid) 
+    {
+      $('#fid')
+        .find('option')
+        .end()
+        .append('<option value="' + '{{ obj.foodId }}' + '">' + '{{ obj.fname }}' + '</option>');
+    }
+  '{% endfor %}'
+}
+
+
+function getPrice() {
+  $('#pid')
+    .find('input')
+    .val(''); 
+
+  var fid = document.getElementById('fid').value;
+
+ 
+  '{% for obj in flist %}'
+    if ('{{ obj.foodId }}' == fid) {
+      // Set the price in the input field
+      $('#pid').val('{{ obj.price }}');
+    }
+ ' {% endfor %}'
+}
+
+
+function updateTotalPrice() {
+  var quantity = parseFloat($('#quantity').val()) || 0; 
+  var price = parseFloat($('#pid').val()) || 0;
+
+  var totalprice = quantity * price;
+  $('#totalprice').val(totalprice.toFixed(2)); 
+}
+
+
+
+
+
+
+
+$(document).ready(function(){
+   $("#login_action").click(function(event){
+       event.preventDefault();  
+
+       var customer = $('#customer').val();
+      
+
+       var food_item = $('#fid').val();
+       var quantity=$('#quantity').val();
+       var totalprice=$('#totalprice').val();
+
+
+
+       $.ajax({
+           url: "/createorderr",
+           type: "POST",
+           data: {  customer: customer,food_item:food_item,quantity:quantity,totalprice:totalprice},
+        
+           success: function(result) {
+               console.log("result ***: ", result);
+               if (result['error']) {
+                   alert(result['error']);
+               } else {
+                   alert("order placerd Successfully");
+                   window.location.href = "/OrderListVieww";
+               }
+           }
+       });
+   });
+  });
+
+      
+
+
+</script>  
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

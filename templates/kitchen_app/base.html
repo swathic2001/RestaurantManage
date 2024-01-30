@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+
+	<title>AdminHub</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Kitchen</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="{% url 'housee' %}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'KitchenListView' %}">
+					<i class='bx bxs-box' ></i>
+					<span class="text">Kitchen</span>
+				</a>
+			</li>
+			
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="{% url 'changePasswo' %}">
+				
+					<i class='bx bxs-key' ></i>
+					<span class="text">ChangePassword</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'logout' %}" class="logout" onclick="confirmLogout()">
+				
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<!-- <i class='bx bx-menu' ></i> -->
+			<!-- <a href="#" class="nav-link">Categories</a> -->
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			
+			<a href="#" class="profile">
+				<img src="{% static 'img/people.png' %}">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+	
+        {% block content %}
+
+        {% endblock %}
+
+		
+			
+	
+
+	<script src="{% static 'script.js' %}"></script>
+	<script>
+		function confirmLogout() {
+			var confirmLogout = confirm("Are you sure you want to logout?");
+			if (confirmLogout) {
+				window.location.href = "{% url 'logout' %}";
+			}
+		}
+	</script>
+</body>
+</html>

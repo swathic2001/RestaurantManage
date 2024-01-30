@@ -1,0 +1,224 @@
+{% extends 'rest_app/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+	body{
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url(https://img.freepik.com/premium-photo/restaurant-cafe-coffee-shop-interior-with-people-abstract-defocused-blur-background_293060-3973.jpg);
+    /* background: url(https://img.freepik.com/premium-photo/restaurant-cafe-coffee-shop-interior-with-people-abstract-defocused-blur-background_293060-3973.jpg); */
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.9s;
+	height: 100vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+user agent stylesheet
+body {
+    display: block;
+    margin: 8px;
+}
+:root {
+    --poppins: 'Poppins', sans-serif;
+    --lato: 'Lato', sans-serif;
+    --light: #F9F9F9;
+    --blue: #3C91E6;
+    --light-blue: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #342E37;
+    --red: #DB504A;
+    --yellow: #FFCE26;
+    --light-yellow: #FFF2C6;
+    --orange: #FD7238;
+    --light-orange: #FFE0D3;
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<title>AdminHub</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">AdminPanel</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="{% url 'homee' %}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'BranchListView' %}"><i class='bx bxs-store'></i>
+
+
+					<span class="text">Branch Details</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'RestaurantListVieww' %}">
+					<i class='bx bxs-spa'></i>
+					<span class="text">Restaurant</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'CategoryListVieww' %}">
+				<i class='bx bxs-food-menu'></i>
+
+					<span class="text">Category</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'FoodItemListVieww' %}">
+					<i class='bx bxs-hot'></i>
+
+					<span class="text">Food Item</span>
+				</a>
+			</li>
+            <li>
+				<a href="{% url 'StatusListVieww' %}">
+					<i class='bx bxs-hourglass'></i>
+
+					<span class="text">Food status</span>
+				</a>
+			</li>
+            <li>
+				<a href="{% url 'OrderListVieww' %}">
+					<i class='bx bxs-cart-add'></i>
+
+					<span class="text">Orders</span>
+				</a>
+			</li>
+            <li>
+				<a href="{% url 'CustomerListVieww' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Customers</span>
+				</a>
+			</li> <li>
+				<a href="{% url 'UserListVieww' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Users</span>
+				</a>
+			</li>
+			<!-- <li>
+				<a href="{% url 'KitchenListVieww' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Kitchen</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'PayListVieww' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Payment</span>
+				</a>
+			</li> -->
+		</ul>
+		<ul class="side-menu">
+		
+			<li>
+				<a href="{% url 'changePassword' %}">
+				
+					<i class='bx bxs-key' ></i>
+					<span class="text">ChangePassword</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'logout' %}" class="logout" onclick="confirmLogout()">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+		<main>
+	
+				
+			</div>
+			
+        
+			<ul class="box-info">
+				<li >
+					<i class='bx bxs-store' ></i>
+					<span class="text">
+						<h3>{{branch_count}}</h3>
+						<p>Branch</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-spa' ></i>
+					<span class="text">
+						<h3>{{restaurant_count}}</h3>
+						<p>Restaurant</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group' ></i>
+					<span class="text">
+						<h3>{{user_count}}</h3>
+						<p>Clients</p>
+					</span>
+				</li>
+				
+				
+			</ul>
+			<!-- <ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>{{branch_count}}</h3>
+						<p>Branch</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group' ></i>
+					<span class="text">
+						<h3>{{user_count}}</h3>
+						<p>Clients</p>
+					</span>
+				</li> -->
+				
+				
+				
+				
+			</ul>
+
+
+			
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	<script src="script.js"></script>
+	<script>
+		function confirmLogout() {
+			var confirmLogout = confirm("Are you sure you want to logout?");
+			if (confirmLogout) {
+				window.location.href = "{% url 'logout' %}";
+			}
+		}
+	</script>
+</body>
+</html>
+{% endblock %}
